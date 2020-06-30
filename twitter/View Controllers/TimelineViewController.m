@@ -9,8 +9,14 @@
 #import "TimelineViewController.h"
 #import "APIManager.h"
 #import "Tweet.h"
+#import "TweetCell.h"
+#import "UIImageView+AFNetworking.h"
 
-@interface TimelineViewController ()
+@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
+
+// MARK: Properties
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *tweets;
 
 @end
 
@@ -19,9 +25,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Get the timeline tweets
+    // Setting the tableView's dataSource and delegate
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    // Getting the timeline tweets
+    [self fetchTweets];
+    
+}
+
+// Method to fetch the timeline tweets from the API
+- (void) fetchTweets {
+    
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
+            self.tweets = tweets;
             NSLog(@"😎😎😎 Successfully loaded home timeline");
             for (Tweet *tweet in tweets) {
                 NSString *text = tweet.text;
@@ -30,12 +48,39 @@
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
+        [self.tableView reloadData];
     }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+}
+
+// Method to configure the Table View's cell (Table View Data Source's required method)
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    Tweet *tweet = self.tweets[indexPath.row];
+    cell.userName.text = tweet.user.name;
+    cell.userScreenName.text = tweet.user.screenName;
+    cell.createdAtLabel.text = tweet.createdAtString;
+    cell.tweetLabel.text = tweet.text;
+    
+    NSURL *profileImageURL = [NSURL URLWithString:tweet.user.profileImageURLString];
+    [cell.profileImageView setImageWithURL:profileImageURL];
+    cell.profileImageView.layer.masksToBounds = YES;
+    cell.profileImageView.layer.cornerRadius = cell.profileImageView.bounds.size.width / 2;
+    
+    cell.retweetCountLabel.text = [NSString stringWithFormat:@"%i", tweet.retweetCount];
+    cell.favoriteCountLabel.text = [NSString stringWithFormat:@"%i", tweet.favoriteCount];
+    
+    return cell;
+}
+
+// Method to find out the number of rows in Table View (Table View Data Source's required method)
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.tweets.count;
 }
 
 /*

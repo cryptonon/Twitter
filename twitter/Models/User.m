@@ -11,10 +11,14 @@
 @implementation User
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    
     self = [super init];
     if (self) {
         self.name = dictionary[@"name"];
         self.screenName = dictionary[@"screen_name"];
+        NSString *lowResoultionprofileImageURLString = dictionary[@"profile_image_url_https"];
+        self.profileImageURLString = [lowResoultionprofileImageURLString stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
+        self.verified = dictionary[@"verified"];
     }
     return self;
 }
