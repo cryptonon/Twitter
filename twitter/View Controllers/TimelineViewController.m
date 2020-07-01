@@ -72,18 +72,7 @@
     
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     Tweet *tweet = self.tweets[indexPath.row];
-    cell.userName.text = tweet.user.name;
-    cell.userScreenName.text = tweet.user.screenName;
-    cell.createdAgoLabel.text = tweet.createdAgoString;
-    cell.tweetLabel.text = tweet.text;
-    
-    NSURL *profileImageURL = [NSURL URLWithString:tweet.user.profileImageURLString];
-    [cell.profileImageView setImageWithURL:profileImageURL];
-    cell.profileImageView.layer.masksToBounds = YES;
-    cell.profileImageView.layer.cornerRadius = cell.profileImageView.bounds.size.width / 2;
-    
-    cell.retweetCountLabel.text = [NSString stringWithFormat:@"%i", tweet.retweetCount];
-    cell.favoriteCountLabel.text = [NSString stringWithFormat:@"%i", tweet.favoriteCount];
+    cell.tweet = tweet;
     
     return cell;
 }

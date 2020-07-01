@@ -105,11 +105,17 @@
                                             <rect key="frame" x="89" y="165" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="retweet-icon"/>
+                                            <connections>
+                                                <action selector="didTapRetweet:" destination="sMY-TI-r2L" eventType="touchUpInside" id="L1b-Z2-FEy"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2y-Ck-m4b">
                                             <rect key="frame" x="206" y="163" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="favor-icon"/>
+                                            <connections>
+                                                <action selector="didTapFavorite:" destination="sMY-TI-r2L" eventType="touchUpInside" id="fPa-Gp-Mld"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ScreenName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsC-Qh-PqT">
                                             <rect key="frame" x="206" y="11" width="91" height="21"/>
@@ -129,8 +135,10 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="createdAgoLabel" destination="Z8o-9Y-I75" id="sJq-Lp-cLe"/>
+                                    <outlet property="favoriteButton" destination="g2y-Ck-m4b" id="wYj-2q-YW7"/>
                                     <outlet property="favoriteCountLabel" destination="iYv-ee-nLY" id="kso-mE-aer"/>
                                     <outlet property="profileImageView" destination="Wl2-sv-fPT" id="glv-Oe-OXV"/>
+                                    <outlet property="retweetButton" destination="g8J-lr-NO8" id="YMo-Xc-8pq"/>
                                     <outlet property="retweetCountLabel" destination="8c6-hD-rFw" id="vIV-Zz-eR1"/>
                                     <outlet property="tweetLabel" destination="lV0-ZU-YuU" id="M9P-Th-WO8"/>
                                     <outlet property="userName" destination="iCh-yy-FxX" id="qTM-Ft-Cu2"/>
