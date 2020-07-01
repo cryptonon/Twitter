@@ -74,7 +74,7 @@
     Tweet *tweet = self.tweets[indexPath.row];
     cell.userName.text = tweet.user.name;
     cell.userScreenName.text = tweet.user.screenName;
-    cell.createdAtLabel.text = tweet.createdAtString;
+    cell.createdAgoLabel.text = tweet.createdAgoString;
     cell.tweetLabel.text = tweet.text;
     
     NSURL *profileImageURL = [NSURL URLWithString:tweet.user.profileImageURLString];
@@ -99,6 +99,7 @@
     [self.tableView reloadData];
 }
 
+// Logging out the user on tapping logout button
 - (IBAction)didTapLogout:(id)sender {
     
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;

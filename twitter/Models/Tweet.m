@@ -7,6 +7,7 @@
 //
 
 #import "Tweet.h"
+#import "NSDate+DateTools.h"
 
 @implementation Tweet
 
@@ -52,6 +53,7 @@
         formatter.dateStyle = NSDateFormatterShortStyle;
         formatter.timeStyle = NSDateFormatterNoStyle;
         self.createdAtString = [formatter stringFromDate:date];
+        self.createdAgoString = [date shortTimeAgoSinceNow];
     }
     return self;
 }
