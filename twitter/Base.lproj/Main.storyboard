@@ -140,7 +140,11 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Home Timeline" id="MOc-fV-EZE">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="2u7-8h-Bnw"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="2u7-8h-Bnw">
+                            <connections>
+                                <action selector="didTapLogout:" destination="Lbl-k5-U4i" id="4qK-Kx-WaC"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="edit-icon" id="Q14-Nm-yfa">
                             <connections>
                                 <segue destination="AeC-b2-27T" kind="presentation" id="upB-Cn-8GS"/>
