@@ -28,6 +28,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+// Method to post tweet on tapping tweet button
 - (IBAction)onTweet:(id)sender {
     NSString *textToTweet = self.composeView.text;
     [[APIManager shared]postStatusWithText:textToTweet completion:^(Tweet *tweet, NSError *error) {

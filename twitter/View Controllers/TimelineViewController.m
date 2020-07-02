@@ -111,7 +111,7 @@
 
 #pragma mark - Navigation
 
-// Method to configuring the segue and set composeController's delegate
+// Method to configuring the segue and set composeController and detailsViewController's delegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"composeTweet"]) {
