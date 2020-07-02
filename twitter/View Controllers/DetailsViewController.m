@@ -149,7 +149,7 @@
 -(void)textViewDidChange:(UITextView *)textView {
     NSUInteger maximumCharacters = 280;
     NSUInteger charactersLeft = maximumCharacters - [textView.text length];
-    self.letterCountLabel.text = [NSString stringWithFormat:@"Characters left: %lu",charactersLeft];
+    self.letterCountLabel.text = [NSString stringWithFormat:@"Characters Remaining: %lu",charactersLeft];
 }
 
 @end
