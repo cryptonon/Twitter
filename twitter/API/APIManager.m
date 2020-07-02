@@ -126,4 +126,21 @@ static NSString * const consumerSecret = @"";
     }];
 }
 
+// API Call to reply to a tweet
+- (void)postStatusWithReply:(NSString *)text toTweet: (Tweet *) tweet completion:(void (^)(Tweet *, NSError *))completion {
+    
+    NSString *urlString = @"1.1/statuses/update.json";
+    NSString *replyingToUser = tweet.user.screenName;
+    NSString *replyingToUserClickable = [@"@" stringByAppendingFormat:replyingToUser];
+    NSString *replyText = [replyingToUserClickable stringByAppendingFormat:@" %@", text];
+    NSDictionary *parameters = @{@"status": replyText, @"in_reply_to_status_id": tweet.idStr};
+      
+      [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
+          Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
+          completion(tweet, nil);
+      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+          completion(nil, error);
+      }];
+}
+
 @end

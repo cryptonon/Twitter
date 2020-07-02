@@ -14,8 +14,9 @@
 #import "ComposeViewController.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "DetailsViewController.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, DetailsViewControllerDelegate>
 
 // MARK: Properties
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -43,28 +44,25 @@
     
 }
 
+// Method to deselect the selected row
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+    [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:YES];
+}
+
 // Method to fetch the timeline tweets from the API
 - (void) fetchTweets {
     
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             self.tweets = (NSMutableArray *) tweets;
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (Tweet *tweet in tweets) {
-                NSString *tweetedText = tweet.text;
-                NSLog(@"%@", tweetedText);
-            }
-        } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
+        
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-
 }
 
 // Method to configure the Table View's cell (Table View Data Source's required method)
@@ -99,16 +97,38 @@
     [[APIManager shared] logout];
 }
 
+// Method to update timeline after tweet is (un)favorited/retweed from Details View (DetailsViewController's required method)
+- (void)didFavoriteOrRetweet:(Tweet *)tweet atIndexPath:(nonnull NSIndexPath *)indexPath {
+    self.tweets[indexPath.row] = tweet;
+    [self.tableView reloadData];
+}
+
+// Method to update timeline after a reply to tweet is posted from Details View (DetailsViewController's required method)
+- (void) didReply:(Tweet *)tweet {
+    [self.tweets insertObject:tweet atIndex:0];
+    [self.tableView reloadData];
+}
 
 #pragma mark - Navigation
 
 // Method to configuring the segue and set composeController's delegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    UINavigationController *navigationController = [segue destinationViewController];
-    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-    composeController.delegate = self;
+    if ([segue.identifier isEqualToString:@"composeTweet"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+    }
+    
+    if ([segue.identifier isEqualToString:@"displayDetails"]) {
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Tweet *tweet = self.tweets[indexPath.row];
+        DetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.tweet = tweet;
+        detailsViewController.indexPathOfTweet = indexPath;
+        detailsViewController.delegate = self;
+    }
 }
-
 
 @end

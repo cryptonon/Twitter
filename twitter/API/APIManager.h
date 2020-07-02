@@ -20,5 +20,6 @@
 - (void)undoFavorite:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
 - (void)retweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
 - (void)undoRetweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
+- (void)postStatusWithReply:(NSString *)text toTweet: (Tweet *) tweet completion:(void (^)(Tweet *, NSError *))completion;
 
 @end
