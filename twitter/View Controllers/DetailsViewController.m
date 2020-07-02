@@ -134,7 +134,7 @@
     }];
 }
 
-// Method to enable reply butto after editing begins (option delegate method of UITextView Delegate)
+// Method to enable reply button after editing begins (optional delegate method of UITextView Delegate)
 - (void) textViewDidBeginEditing:(UITextView *)textView {
         self.replyButton.enabled = YES;
 }

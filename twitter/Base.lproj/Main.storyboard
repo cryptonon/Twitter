@@ -71,12 +71,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Characters Remaining: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-RR-ClG">
+                                <rect key="frame" x="80" y="268" width="215" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="FZg-1w-ZDl" firstAttribute="leading" secondItem="WgT-5M-kUE" secondAttribute="leading" constant="16" id="FDJ-iW-C32"/>
                             <constraint firstItem="FZg-1w-ZDl" firstAttribute="top" secondItem="WgT-5M-kUE" secondAttribute="top" constant="10" id="Pue-oe-9QS"/>
+                            <constraint firstItem="Jvh-RR-ClG" firstAttribute="top" secondItem="FZg-1w-ZDl" secondAttribute="bottom" constant="25" id="fut-cb-HU0"/>
+                            <constraint firstItem="Jvh-RR-ClG" firstAttribute="leading" secondItem="WgT-5M-kUE" secondAttribute="leading" constant="80" id="loD-pr-KNl"/>
                             <constraint firstItem="WgT-5M-kUE" firstAttribute="trailing" secondItem="FZg-1w-ZDl" secondAttribute="trailing" constant="16" id="tYL-6O-Lie"/>
+                            <constraint firstItem="WgT-5M-kUE" firstAttribute="trailing" secondItem="Jvh-RR-ClG" secondAttribute="trailing" constant="80" id="uyp-fq-utt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WgT-5M-kUE"/>
                     </view>
@@ -93,6 +102,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="characterCountLabel" destination="Jvh-RR-ClG" id="phh-2C-MV9"/>
                         <outlet property="composeView" destination="FZg-1w-ZDl" id="Uuc-cZ-CMI"/>
                     </connections>
                 </viewController>
@@ -173,11 +183,17 @@
                                 <rect key="frame" x="108" y="257" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="retweet-icon"/>
+                                <connections>
+                                    <action selector="didTapRetweet:" destination="snY-SL-ggi" eventType="touchUpInside" id="5Va-Hv-aDV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KvT-Nn-3Dp">
                                 <rect key="frame" x="245" y="257" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="favor-icon"/>
+                                <connections>
+                                    <action selector="didTapFavorite:" destination="snY-SL-ggi" eventType="touchUpInside" id="FWP-As-zB3"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Retweet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yY2-t7-F2u">
                                 <rect key="frame" x="146" y="261" width="63" height="21"/>
@@ -211,13 +227,16 @@
                                 <rect key="frame" x="71" y="374" width="233" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gch-Wt-NOA">
                                 <rect key="frame" x="50" y="257" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="reply-icon"/>
+                                <connections>
+                                    <action selector="didTapReply:" destination="snY-SL-ggi" eventType="touchUpInside" id="A2c-3j-rdD"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
